@@ -1,14 +1,28 @@
-import {expect} from 'chai';
+import {expect, assert} from 'chai';
+import {cars, variants, acceptVariants} from '../js/index';
 
 describe('application logic', () => {
 
-  describe('setEntries', () => {
+  describe('connect variants && cars', () => {
+    let currCar;
+    beforeEach(function() {
+      acceptVariants.setCurrentCar(1);
+      acceptVariants.clearVariants();
+      currCar = acceptVariants.getCurrentCar();
+    });
 
-    it('adds the entries to the state', () => {
+    it('check current car', () => {
+      assert.strictEqual(currCar, cars[0])
+    })
 
-      expect(nextState).to.equal(Map({
-        entries: List.of('Trainspotting', '28 Days Later')
-      }));
+    it('add one variant to car', () => {
+      acceptVariants.addVariant(1)
+      assert.deepEqual(currCar.variantsIds, [1])
+    });
+
+    it('add many variants to car', () => {
+      acceptVariants.addCollectionVariants([1,3])
+      assert.deepEqual(currCar.variantsIds, [1,3])
     });
   });
 });

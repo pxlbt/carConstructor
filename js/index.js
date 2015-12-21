@@ -1,27 +1,27 @@
 import _ from 'underscore'
 ////model////
-let cars = [
+export let cars = [
   {
-    id: _.uniqueId('car_'),
+    id: 1,
     name: 'car1'
   },
   {
-    id: _.uniqueId('car_'),
+    id: 2,
     name: 'car2'
   },
   {
-    id: _.uniqueId('car_'),
+    id: 3,
     name: 'car3'
   },
   {
-    id: _.uniqueId('car_'),
+    id: 4,
     name: 'car4'
   }
 ]
 
-let variants = [
+export let variants = [
   {
-    id: _.uniqueId('variant_'),
+    id: 1,
     name: 'Цвет',
     options: [
       {
@@ -38,7 +38,7 @@ let variants = [
     ]
   },
   {
-    id: _.uniqueId('variant_'),
+    id: 2,
     name: 'Диски',
     options: [
       {
@@ -56,7 +56,7 @@ let variants = [
     ]
   },
   {
-    id: _.uniqueId('variant_'),
+    id: 3,
     name: 'Наклеечка на лобовое',
     options: [
       {
@@ -74,10 +74,29 @@ let variants = [
 ]
 
 ////controllers////
-let acceptVariants = (
+export let acceptVariants = (
   () => {
+    let _currentCar = null;
     return {
-      
+      setCurrentCar(id) {
+        _currentCar = _.findWhere(cars, {id})
+      },
+      getCurrentCar() {
+        return _currentCar
+      },
+      clearVariants() {
+        if (_currentCar.variantsIds) {
+          _currentCar.variantsIds = []
+        }
+      },
+      addVariant(id) {
+        if (_currentCar.variantsIds === undefined)
+          _currentCar.variantsIds = [];
+        _currentCar.variantsIds.push(id)
+      },
+      addCollectionVariants(ids) {
+        ids.forEach(this.addVariant);
+      }
     }
   }
 )()

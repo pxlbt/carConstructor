@@ -1,6 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.acceptVariants = exports.variants = exports.cars = undefined;
+
 var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
@@ -8,22 +13,22 @@ var _underscore2 = _interopRequireDefault(_underscore);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 ////model////
-var cars = [{
-  id: _underscore2.default.uniqueId('car_'),
+var cars = exports.cars = [{
+  id: 1,
   name: 'car1'
 }, {
-  id: _underscore2.default.uniqueId('car_'),
+  id: 2,
   name: 'car2'
 }, {
-  id: _underscore2.default.uniqueId('car_'),
+  id: 3,
   name: 'car3'
 }, {
-  id: _underscore2.default.uniqueId('car_'),
+  id: 4,
   name: 'car4'
 }];
 
-var variants = [{
-  id: _underscore2.default.uniqueId('variant_'),
+var variants = exports.variants = [{
+  id: 1,
   name: 'Цвет',
   options: [{
     id: _underscore2.default.uniqueId('o'),
@@ -36,7 +41,7 @@ var variants = [{
     _type: 'B'
   }]
 }, {
-  id: _underscore2.default.uniqueId('variant_'),
+  id: 2,
   name: 'Диски',
   options: [{
     id: _underscore2.default.uniqueId('o'),
@@ -50,7 +55,7 @@ var variants = [{
     _type: 'С'
   }]
 }, {
-  id: _underscore2.default.uniqueId('variant_'),
+  id: 3,
   name: 'Наклеечка на лобовое',
   options: [{
     id: _underscore2.default.uniqueId('o'),
@@ -64,8 +69,16 @@ var variants = [{
 }];
 
 ////controllers////
-var acceptVariants = (function () {
-  return {};
+var acceptVariants = exports.acceptVariants = (function () {
+  var _currentCar = null;
+  return {
+    setCurrentCar: function setCurrentCar(id) {
+      _currentCar = _underscore2.default.findWhere(cars, { id: id });
+    },
+    getCurrentCar: function getCurrentCar() {
+      return _currentCar;
+    }
+  };
 })();
 
 },{"underscore":2}],2:[function(require,module,exports){
