@@ -25,13 +25,13 @@ export let variants = [
     name: 'Цвет',
     options: [
       {
-        id: _.uniqueId('o'),
+        id: 11,
         name: 'Доступные',
         value: ['red', 'blue', 'green', 'yellow'],
         _type: 'C'
       },
       {
-        id: _.uniqueId('o'),
+        id: 12,
         name: 'Металик',
         _type: 'B'
       }
@@ -42,13 +42,13 @@ export let variants = [
     name: 'Диски',
     options: [
       {
-        id: _.uniqueId('o'),
+        id: 21,
         name: 'Доступные',
         value: ['кованые', 'литые'],
         _type: 'C'
       },
       {
-        id: _.uniqueId('o'),
+        id: 22,
         name: 'Размер',
         value: [15,16,17],
         _type: 'С'
@@ -60,12 +60,12 @@ export let variants = [
     name: 'Наклеечка на лобовое',
     options: [
       {
-        id: _.uniqueId('o'),
+        id: 31,
         name: 'Надпись',
         _type: 'S'
       },
       {
-        id: _.uniqueId('o'),
+        id: 32,
         name: 'Цветная?',
         _type: 'B'
       }
@@ -84,18 +84,33 @@ export let acceptVariants = (
       getCurrentCar() {
         return _currentCar
       },
-      clearVariants() {
-        if (_currentCar.variantsIds) {
-          _currentCar.variantsIds = []
-        }
+      setVariants() {
+        _currentCar.variants = []
       },
-      addVariant(id) {
-        if (_currentCar.variantsIds === undefined)
-          _currentCar.variantsIds = [];
-        _currentCar.variantsIds.push(id)
+      addVariants(id) {
+        if (_.isArray(id))
+          id.forEach(this.addVariants);
+        else
+        _currentCar.variants.push({id, options: []})
       },
-      addCollectionVariants(ids) {
-        ids.forEach(this.addVariant);
+      removeVariant(id) {
+        let cv = _currentCar.variants;
+        cv.splice(_.indexOf(cv, this.getVariant(id)), 1);
+      },
+      getVariant(id) {
+        return _.findWhere(_currentCar.variants, {id})
+      },
+      getVariants() {
+        return _currentCar.variants;
+      },
+      setOptions(vid) {
+        this.getVariant(vid).options = [];
+      },
+      addOption2Variant(vid, oid) {
+        if (_.isArray(oid))
+          oid.forEach(this.addOption.bind(this, vid));
+        else
+          this.getVariant(vid).options.push({id:oid})
       }
     }
   }
