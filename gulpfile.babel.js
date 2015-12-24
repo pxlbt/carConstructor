@@ -8,7 +8,7 @@ import source from 'vinyl-source-stream';
 
 gulp.task('js', () => {
   return browserify({entries: 'js/index.js'})
-    .transform(babelify)
+    .transform(babelify, {presets: ["es2015", "react"]})
     .bundle()
     .pipe(source('index.js'))
     .pipe(gulp.dest('dist/js'));
@@ -17,6 +17,9 @@ gulp.task('js', () => {
 
 gulp.task('js-watch', ['js'], browserSync.reload);
 
+gulp.task('watch', () => {
+  gulp.watch("js/*.js", ['js']);
+})
 // use default task to launch Browsersync and watch JS files
 gulp.task('serve', ['js'], () => {
 
