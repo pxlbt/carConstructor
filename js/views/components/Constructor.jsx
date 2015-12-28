@@ -1,11 +1,22 @@
 import React from 'react'
-import ReactDOM from'react-dom'
+import CarsList from './constructor/CarsList.jsx'
+import VariantsList from './constructor/VariantsList.jsx'
 
 export default class CarConstructor extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return  <div>i'm constructor!</div>
+    return  (
+      <div className="row">
+        <div className="col-md-4">
+          <CarsList {...this.props} />
+        </div>
+        <div className="col-md-4 col-offset-1">
+          <VariantsList {...this.props} />
+        </div>
+      </div>
+
+    )
   }
 }

@@ -9,7 +9,7 @@ export let carController = (
     let setVariants = () => {
       _currentCar.variants = []
     }
-    setVariants()
+    !_currentCar.variants && setVariants()
 
     return {
       getCurrentCar() {
@@ -42,26 +42,45 @@ export let carController = (
         if (_.isArray(oid))
           oid.forEach(this.addOption2Variant.bind(this, vid));
         else
-          this.getVariants(vid).options.push({id:oid})
+          this.getVariants(vid).options.push(oid)
+      },
+      removeOption(vid, oid) {
+        let optionsGroupt = this.getVariants(vid).options;
+        optionsGroupt.splice(optionsGroupt.indexOf(oid), 1);
       },
       setVariants: setVariants
     }
   }
 )
 
-export class Car {
-  constructor(car_id) {
-    this.car_id = car_id
-    this.acceptHelper = carController(this.car_id)
+export let aggregationModel = (
+  (carId) => {
+    let car = carController(carId)
+
+    return {
+      getVariants() {
+        return (car.getVariants().map((item) => modelHelper.variants.getByID(item.id)))
+      },
+      getOptions(id) {
+        return  modelHelper.variants.getOptions(id).filter((item) => car.getOptions(id).indexOf(item.id) > -1)
+      }
+    }
   }
-  addCompleteVariant(id) {
-    this.acceptHelper.addVariants(id)
-    this.acceptHelper.addOption2Variant(id, modelHelper.variants.getOptions(id).map(item => item.id));
-  }
-  getData() {
-    return this.acceptHelper.getCurrentCar()
-  }
-  getVariants(id) {
-    return this.acceptHelper.getVariants(id)
-  }
-}
+)
+//
+// export class Car {
+//   constructor(car_id) {
+//     this.car_id = car_id
+//     this.acceptHelper = carController(this.car_id)
+//   }
+//   addCompleteVariant(id) {
+//     this.acceptHelper.addVariants(id)
+//     this.acceptHelper.addOption2Variant(id, modelHelper.variants.getOptions(id).map(item => item.id));
+//   }
+//   getData() {
+//     return this.acceptHelper.getCurrentCar()
+//   }
+//   getVariants(id) {
+//     return this.acceptHelper.getVariants(id)
+//   }
+// }
