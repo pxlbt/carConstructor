@@ -639,7 +639,7 @@ var OptionsList = (function (_React$Component) {
     key: "renderOption",
     value: function renderOption(item) {
       var elmProps = {
-        isChecked: this.props.activeCar.getVariants(this.props.id) && this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1
+        isChecked: this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1
       };
       return _react2.default.createElement(
         "li",
@@ -680,10 +680,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _underscore = require('underscore');
-
-var _underscore2 = _interopRequireDefault(_underscore);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -719,8 +715,9 @@ var VariantsList = (function (_React$Component) {
     key: 'renderVariants',
     value: function renderVariants(item) {
       var elmProps = {
-        isChecked: _underscore2.default.findWhere(this.props.activeCar.getVariants(), { id: item.id })
+        isChecked: this.props.activeCar.getVariants(item.id)
       };
+      var componentOptionsList = elmProps.isChecked ? _react2.default.createElement(_OptionsList2.default, _extends({}, this.props, { id: item.id })) : null;
       return _react2.default.createElement(
         'li',
         { key: item.id },
@@ -731,7 +728,7 @@ var VariantsList = (function (_React$Component) {
           ' ',
           item.name
         ),
-        _react2.default.createElement(_OptionsList2.default, _extends({}, this.props, { id: item.id }))
+        componentOptionsList
       );
     }
   }, {
@@ -750,7 +747,7 @@ var VariantsList = (function (_React$Component) {
 
 exports.default = VariantsList;
 
-},{"./OptionsList.jsx":9,"react":169,"underscore":170}],11:[function(require,module,exports){
+},{"./OptionsList.jsx":9,"react":169}],11:[function(require,module,exports){
 /*!
   Copyright (c) 2015 Jed Watson.
   Licensed under the MIT License (MIT), see

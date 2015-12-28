@@ -1,4 +1,3 @@
-import _ from 'underscore'
 import React from 'react'
 import OptionsList from './OptionsList.jsx'
 
@@ -12,12 +11,13 @@ export default class VariantsList extends React.Component {
   }
   renderVariants(item) {
     let elmProps = {
-      isChecked : _.findWhere(this.props.activeCar.getVariants(), {id: item.id})
+      isChecked : this.props.activeCar.getVariants(item.id)
     }
+    let componentOptionsList = elmProps.isChecked ? <OptionsList {...this.props} id={item.id} /> : null;
     return (
       <li key={item.id}>
         <label><input type="checkbox" checked={elmProps.isChecked}  onChange={this.toggleVariant.bind(this, item.id)} /> {item.name}</label>
-        <OptionsList {...this.props} id={item.id} />
+        {componentOptionsList}
       </li>
     )
   }

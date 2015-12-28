@@ -10,8 +10,7 @@ export default class OptionsList extends React.Component {
   }
   renderOption(item) {
     let elmProps = {
-      isChecked : this.props.activeCar.getVariants(this.props.id)
-                && this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1
+      isChecked : this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1
     }
     return (
       <li key={item.id}>
