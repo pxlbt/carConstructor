@@ -507,6 +507,7 @@ var CarConstructor = (function (_React$Component) {
   _createClass(CarConstructor, [{
     key: 'render',
     value: function render() {
+      var variantsListComponent = this.props.activeCar ? _react2.default.createElement(_VariantsList2.default, this.props) : null;
       return _react2.default.createElement(
         'div',
         { className: 'row' },
@@ -518,7 +519,7 @@ var CarConstructor = (function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'col-md-4 col-offset-1' },
-          _react2.default.createElement(_VariantsList2.default, this.props)
+          variantsListComponent
         )
       );
     }
@@ -638,8 +639,7 @@ var OptionsList = (function (_React$Component) {
     key: "renderOption",
     value: function renderOption(item) {
       var elmProps = {
-        isChecked: this.props.activeCar && this.props.activeCar.getVariants(this.props.id) && this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1,
-        isDisabled: !this.props.activeCar
+        isChecked: this.props.activeCar.getVariants(this.props.id) && this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1
       };
       return _react2.default.createElement(
         "li",
@@ -647,7 +647,7 @@ var OptionsList = (function (_React$Component) {
         _react2.default.createElement(
           "label",
           null,
-          _react2.default.createElement("input", { type: "checkbox", onChange: this.toggleVariant.bind(this, item.id), checked: elmProps.isChecked, disabled: elmProps.isDisabled }),
+          _react2.default.createElement("input", { type: "checkbox", onChange: this.toggleVariant.bind(this, item.id), checked: elmProps.isChecked }),
           " ",
           item.name
         )
@@ -719,8 +719,7 @@ var VariantsList = (function (_React$Component) {
     key: 'renderVariants',
     value: function renderVariants(item) {
       var elmProps = {
-        isChecked: this.props.activeCar && _underscore2.default.findWhere(this.props.activeCar.getVariants(), { id: item.id }),
-        isDisabled: !this.props.activeCar
+        isChecked: _underscore2.default.findWhere(this.props.activeCar.getVariants(), { id: item.id })
       };
       return _react2.default.createElement(
         'li',
@@ -728,7 +727,7 @@ var VariantsList = (function (_React$Component) {
         _react2.default.createElement(
           'label',
           null,
-          _react2.default.createElement('input', { type: 'checkbox', checked: elmProps.isChecked, disabled: elmProps.isDisabled, onChange: this.toggleVariant.bind(this, item.id) }),
+          _react2.default.createElement('input', { type: 'checkbox', checked: elmProps.isChecked, onChange: this.toggleVariant.bind(this, item.id) }),
           ' ',
           item.name
         ),

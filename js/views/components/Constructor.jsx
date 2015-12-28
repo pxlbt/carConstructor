@@ -7,13 +7,14 @@ export default class CarConstructor extends React.Component {
     super(props);
   }
   render() {
+    let variantsListComponent = this.props.activeCar ? <VariantsList {...this.props} /> : null;
     return  (
       <div className="row">
         <div className="col-md-4">
           <CarsList {...this.props} />
         </div>
         <div className="col-md-4 col-offset-1">
-          <VariantsList {...this.props} />
+          {variantsListComponent}
         </div>
       </div>
 

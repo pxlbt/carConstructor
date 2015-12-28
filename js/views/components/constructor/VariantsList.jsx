@@ -12,12 +12,11 @@ export default class VariantsList extends React.Component {
   }
   renderVariants(item) {
     let elmProps = {
-      isChecked : this.props.activeCar && _.findWhere(this.props.activeCar.getVariants(), {id: item.id}),
-      isDisabled: !this.props.activeCar
+      isChecked : _.findWhere(this.props.activeCar.getVariants(), {id: item.id})
     }
     return (
       <li key={item.id}>
-        <label><input type="checkbox" checked={elmProps.isChecked} disabled={elmProps.isDisabled} onChange={this.toggleVariant.bind(this, item.id)} /> {item.name}</label>
+        <label><input type="checkbox" checked={elmProps.isChecked}  onChange={this.toggleVariant.bind(this, item.id)} /> {item.name}</label>
         <OptionsList {...this.props} id={item.id} />
       </li>
     )

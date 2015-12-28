@@ -10,14 +10,12 @@ export default class OptionsList extends React.Component {
   }
   renderOption(item) {
     let elmProps = {
-      isChecked : this.props.activeCar
-                && this.props.activeCar.getVariants(this.props.id)
-                && this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1,
-      isDisabled: !this.props.activeCar
+      isChecked : this.props.activeCar.getVariants(this.props.id)
+                && this.props.activeCar.getOptions(this.props.id).indexOf(item.id) > -1
     }
     return (
       <li key={item.id}>
-        <label><input type="checkbox" onChange={this.toggleVariant.bind(this, item.id)} checked={elmProps.isChecked} disabled={elmProps.isDisabled} /> {item.name}</label>
+        <label><input type="checkbox" onChange={this.toggleVariant.bind(this, item.id)} checked={elmProps.isChecked} /> {item.name}</label>
       </li>
     )
   }
